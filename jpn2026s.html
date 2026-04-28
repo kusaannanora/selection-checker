@@ -1,151 +1,151 @@
-!DOCTYPE html
-html lang=ja
-head
-  meta charset=UTF-8
-  title選抜戦参加資格チェックtitle
-  style
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>選抜戦参加資格チェック</title>
+  <style>
     body {
-      font-family sans-serif;
-      padding 40px;
-      text-align center;
-      background #f7f7f7;
-      color #222;
+      font-family: sans-serif;
+      padding: 40px;
+      text-align: center;
+      background: #f7f7f7;
+      color: #222;
     }
 
     .container {
-      max-width 640px;
-      margin 0 auto;
-      background #fff;
-      padding 32px;
-      border-radius 16px;
-      box-shadow 0 4px 16px rgba(0,0,0,0.08);
+      max-width: 640px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
     }
 
     input {
-      font-size 20px;
-      padding 12px;
-      width 280px;
-      max-width 90%;
-      box-sizing border-box;
+      font-size: 20px;
+      padding: 12px;
+      width: 280px;
+      max-width: 90%;
+      box-sizing: border-box;
     }
 
     button {
-      font-size 18px;
-      padding 12px 20px;
-      margin-left 8px;
-      cursor pointer;
+      font-size: 18px;
+      padding: 12px 20px;
+      margin-left: 8px;
+      cursor: pointer;
     }
 
     #result {
-      margin-top 28px;
-      font-size 28px;
-      font-weight bold;
+      margin-top: 28px;
+      font-size: 28px;
+      font-weight: bold;
     }
 
     .ok {
-      color #008000;
+      color: #008000;
     }
 
     .ng {
-      color #d00000;
+      color: #d00000;
     }
 
     .note {
-      margin-top 32px;
-      font-size 14px;
-      color #666;
-      line-height 1.7;
+      margin-top: 32px;
+      font-size: 14px;
+      color: #666;
+      line-height: 1.7;
     }
-  style
-head
-body
+  </style>
+</head>
+<body>
 
-  div class=container
-    h1選抜戦参加資格チェックh1
+  <div class="container">
+    <h1>選抜戦参加資格チェック</h1>
 
-    pフレンドコードを入力してくださいp
+    <p>フレンドコードを入力してください</p>
 
-    input id=friendCode placeholder=例：1234-5678-9012
-    button onclick=checkCode()確認button
+    <input id="friendCode" placeholder="例：1234-5678-9012">
+    <button onclick="checkCode()">確認</button>
 
-    div id=resultdiv
+    <div id="result"></div>
 
-    p class=note
-      本ページは公開されている大会実績等の情報をもとに作成しています。br
-      掲載内容に誤りがある場合はご連絡ください。br
+    <p class="note">
+      本ページは公開されている大会実績等の情報をもとに作成しています。<br>
+      掲載内容に誤りがある場合はご連絡ください。<br>
       本ツールは非公式の参考情報です。
-    p
-  div
+    </p>
+  </div>
 
-  script
+  <script>
     const qualifiedCodes = new Set([
-      5037-2554-1133,
-      7588-9965-8663,
-      8114-9158-6417,
-      7496-8693-6783,
-      2957-1865-5482,
-      8405-7050-1246,
-      1958-2357-2977,
-      1255-2271-9434,
-      6375-6639-7684,
-      7009-5957-3881,
-      0982-1941-3118,
-      0649-2486-8879,
-      0523-0538-8509,
-      2439-1661-3607,
-      5226-6017-6326,
-      6807-0541-2607,
-      4384-4501-6330,
-      3266-8393-8121,
-      0256-1098-2908,
-      0860-4105-6139,
-      4794-8995-9474,
-      0255-8152-9722,
-      3455-9562-4316,
-      8265-0597-9011,
-      7257-4915-1401,
-      3248-8609-1106,
-      6364-8167-5315,
-      4367-7216-4315,
-      8434-4877-2786,
-      2548-8922-7493,
-      5705-1163-2814,
-      6586-2158-3795,
-      3290-9550-4049
+      "5037-2554-1133",
+      "7588-9965-8663",
+      "8114-9158-6417",
+      "7496-8693-6783",
+      "2957-1865-5482",
+      "8405-7050-1246",
+      "1958-2357-2977",
+      "1255-2271-9434",
+      "6375-6639-7684",
+      "7009-5957-3881",
+      "0982-1941-3118",
+      "0649-2486-8879",
+      "0523-0538-8509",
+      "2439-1661-3607",
+      "5226-6017-6326",
+      "6807-0541-2607",
+      "4384-4501-6330",
+      "3266-8393-8121",
+      "0256-1098-2908",
+      "0860-4105-6139",
+      "4794-8995-9474",
+      "0255-8152-9722",
+      "3455-9562-4316",
+      "8265-0597-9011",
+      "7257-4915-1401",
+      "3248-8609-1106",
+      "6364-8167-5315",
+      "4367-7216-4315",
+      "8434-4877-2786",
+      "2548-8922-7493",
+      "5705-1163-2814",
+      "6586-2158-3795",
+      "3290-9550-4049"
     ]);
 
     function normalizeCode(code) {
       const digits = code
-        .replace([０-９]g, s = String.fromCharCode(s.charCodeAt(0) - 0xFEE0))
-        .replace([^0-9]g, );
+        .replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0))
+        .replace(/[^0-9]/g, "");
 
       if (digits.length !== 12) {
         return null;
       }
 
-      return digits.replace((d{4})(d{4})(d{4}), $1-$2-$3);
+      return digits.replace(/(\d{4})(\d{4})(\d{4})/, "$1-$2-$3");
     }
 
     function checkCode() {
-      const input = document.getElementById(friendCode).value;
+      const input = document.getElementById("friendCode").value;
       const code = normalizeCode(input);
-      const result = document.getElementById(result);
+      const result = document.getElementById("result");
 
       if (!code) {
-        result.textContent = 正しいフレンドコードを入力してください;
-        result.className = ng;
+        result.textContent = "正しいフレンドコードを入力してください";
+        result.className = "ng";
         return;
       }
 
       if (qualifiedCodes.has(code)) {
-        result.textContent = 選抜戦参加資格：あり;
-        result.className = ok;
+        result.textContent = "選抜戦参加資格：あり";
+        result.className = "ok";
       } else {
-        result.textContent = 選抜戦参加資格：なし;
-        result.className = ng;
+        result.textContent = "選抜戦参加資格：なし";
+        result.className = "ng";
       }
     }
-  script
+  </script>
 
-body
-html
+</body>
+</html>
